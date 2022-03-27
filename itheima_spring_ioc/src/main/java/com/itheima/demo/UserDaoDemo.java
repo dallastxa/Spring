@@ -9,5 +9,6 @@ public class UserDaoDemo {
         ApplicationContext app=new ClassPathXmlApplicationContext("applicationContext.xml");
         UserDao userDao=(UserDao) app.getBean("userDao");
         userDao.save();
+        System.out.println("hello spring");
     }
 }

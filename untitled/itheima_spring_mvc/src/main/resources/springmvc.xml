@@ -24,5 +24,18 @@
             </list>
         </property>
     </bean>-->
-    <mvc:annotation-driven></mvc:annotation-driven>
+    <mvc:annotation-driven conversion-service="conversionService"> </mvc:annotation-driven>
+
+    <!--开发资源的访问-->
+    <mvc:default-servlet-handler></mvc:default-servlet-handler>
+<!--    <mvc:resources mapping="/js/**" location="/js/"></mvc:resources>-->
+
+    <!--声明转换器-->
+    <bean id="conversionService" class="org.springframework.context.support.ConversionServiceFactoryBean">
+        <property name="converters">
+            <list>
+                <bean class="com.itheima.converter.DateConverter"></bean>
+            </list>
+        </property>
+    </bean>
 </beans>

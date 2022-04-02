@@ -6,11 +6,13 @@ import com.itheima.domain.VO;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Date;
@@ -19,11 +21,34 @@ import java.util.List;
 @Controller
 @RequestMapping("/user")
 public class UserController {
+    @RequestMapping(value="/quick23")
+    @ResponseBody
+    public void save23(String username, MultipartFile[] uploadFile) throws IOException {
+        System.out.println(username);
+        //获得上传文件的名称
+        for (MultipartFile multipartFile:uploadFile){
+            String originalFilename=multipartFile.getOriginalFilename();
+            multipartFile.transferTo(new File("E:\\Spring\\untitled\\itheima_spring_mvc\\upload\\"+originalFilename));
+        }
+    }
+
+    @RequestMapping(value="/quick22")
+    @ResponseBody
+    public void save22(String username, MultipartFile uploadFile,MultipartFile uploadFile2) throws IOException {
+        System.out.println(username);
+        //获得上传文件的名称
+        String originalFilename=uploadFile.getOriginalFilename();
+        String originalFilename2=uploadFile2.getOriginalFilename();
+        uploadFile.transferTo(new File("E:\\Spring\\untitled\\itheima_spring_mvc\\upload\\"+originalFilename));
+        uploadFile.transferTo(new File("E:\\Spring\\untitled\\itheima_spring_mvc\\upload\\"+originalFilename2));
+    }
+
     @RequestMapping(value="/quick21")
     @ResponseBody
     public void save21(@CookieValue(value = "JSESSIONID") String jsessionId) {
         System.out.println(jsessionId);
     }
+
     @RequestMapping(value="/quick20")
     @ResponseBody
     public void save20(@RequestHeader(value = "User-Agent",required = false) String user_agent) {
@@ -163,6 +188,7 @@ public class UserController {
         modelAndView.addObject("username","itcast");
         return modelAndView;
     }
+
     //请求地址
     @RequestMapping(value="/quick",method = RequestMethod.GET/*,params = {"userName"}*/)
     public String save(){
